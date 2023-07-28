@@ -16,16 +16,11 @@ import pages.LoginPage;
 
 public class TestRule {
 
-
-
 	private static WebDriver driver;
 	private static String PATH_DRIVER = "src/test/resources/drivers/chromedriver.exe";
 	private static String URL = "https://www.saucedemo.com/";
 
-	//public LoginPage login = new LoginPage();
-
-	@Before
-	public void initialConfigs() {
+	public static void initialConfigs() {
 		System.setProperty("webdriver.chrome.driver", PATH_DRIVER);
 		driver = new ChromeDriver();
 		// driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -53,10 +48,9 @@ public class TestRule {
 		//btnlogin.click();
 	}*/
 
-	@After
-	public void finishTest() {
-		//driver.close();
-		//driver.quit();
+	public static void finishTest() {
+		driver.close();
+		driver.quit();
 	}
 
 	public static WebDriver getDiver() {

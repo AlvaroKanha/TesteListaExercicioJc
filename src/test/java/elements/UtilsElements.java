@@ -10,7 +10,6 @@ import Rules.TestRule;
 
 public class UtilsElements {
 
-	
 	protected WebDriver driver = TestRule.getDiver();
 	protected WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	
