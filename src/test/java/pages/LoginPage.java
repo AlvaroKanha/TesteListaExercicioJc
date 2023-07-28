@@ -10,13 +10,15 @@ public class LoginPage extends LoginElementsMap {
 	public LoginPage() {
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	public void efetuarLogin() {
-		wait.until(ExpectedConditions.elementToBeClickable(btnLogin));	
-		System.out.println(standardUser.getText());
-			
-		userName.sendKeys(standardUser.getText());
-		userPassword.sendKeys(password.getText());
+		wait.until(ExpectedConditions.elementToBeClickable(btnLogin));
+
+		// userName.sendKeys(standardUser.getText());
+		// userPassword.sendKeys(password.getText());
+
+		userName.sendKeys("standard_user");
+		userPassword.sendKeys("secret_sauce");
 		wait.until(ExpectedConditions.elementToBeClickable(btnLogin));
 		btnLogin.click();
 	}
