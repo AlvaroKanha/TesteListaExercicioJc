@@ -12,7 +12,6 @@ import elements.HomeProdutosElementsMap;
 import elements.LoginElementsMap;
 import runner.RunnerTest;
 
-@RunWith(LoginPage.class)
 
 
 public class LoginPage extends LoginElementsMap {

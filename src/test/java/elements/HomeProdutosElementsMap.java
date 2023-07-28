@@ -16,4 +16,10 @@ public class HomeProdutosElementsMap extends UtilsElements {
 	
 	@FindBy(xpath = "//*[@id='add-to-cart-sauce-labs-backpack']")
 	protected WebElement productOne;
+	
+	@FindBy(xpath = "//option[@value = 'lohi']")
+	protected WebElement lohiFilter;
+	
+	@FindBy(xpath = "//span[@class = 'active_option']")
+	protected WebElement activatedFilter;
 }
