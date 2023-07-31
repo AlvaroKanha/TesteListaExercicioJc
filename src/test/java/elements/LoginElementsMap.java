@@ -6,9 +6,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginElementsMap extends UtilsElements {
 	
-	public LoginElementsMap() {
-		PageFactory.initElements(driver, this);
-	}
+	//public LoginElementsMap() {
+		//PageFactory.initElements(driver, this);
+	//}
 
 	@FindBy(xpath = "//*[@id='user-name']")
 	protected WebElement userName; 

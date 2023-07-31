@@ -13,8 +13,8 @@ public class UtilsElements {
 	protected WebDriver driver = TestRule.getDiver();
 	protected WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	
-	public UtilsElements() {
-		PageFactory.initElements(driver, this);
-	}
+	//public UtilsElements() {
+		//PageFactory.initElements(driver, this);
+	//}
 	
 }
