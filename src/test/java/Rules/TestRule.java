@@ -5,17 +5,15 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-//@RunWith(LoginPage.class)
-
 public class TestRule {
-
 	private static WebDriver driver;
+	private static boolean driverInit = false;
 	private static String PATH_DRIVER = "src/test/resources/drivers/chromedriver.exe";
 	private static String URL = "https://www.saucedemo.com/";
 
 	public static void initialConfigs() {
-
-		if (driver == null) {
+		System.out.println("Intial configs -----------------------------------------------");
+		if (!driverInit) {
 			// driver.getPageSource();
 			System.setProperty("webdriver.chrome.driver", PATH_DRIVER);
 			driver = new ChromeDriver();
@@ -23,22 +21,22 @@ public class TestRule {
 			driver.manage().window().maximize();
 			// driver.navigate().to(URL);
 			driver.get(URL);
+			driverInit = true;
 		}
-
 	}
 
 	public static void finishTest() {
-
-		if (driver != null) {
+		System.out.println("Finish teste -----------------------------------------------");
+		if (driverInit) {
 			driver.close();
 			driver.quit();
-			// driver = null;
+			driverInit = false;
 		}
 	}
 
 	public static WebDriver getDiver() {
-
-		if (driver == null) {
+		System.out.println("get driver-----------------------------------------------");
+		if (!driverInit) {
 			initialConfigs();
 		}
 		return driver;
