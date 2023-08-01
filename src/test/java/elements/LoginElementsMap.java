@@ -26,5 +26,6 @@ public class LoginElementsMap extends UtilsElements {
 	// Verificar se n�o tem como validar pela outra classe
 	@FindBy(xpath = "//span[@class = 'title']")
 	protected WebElement titleHomeProduct;
+		
 
 }

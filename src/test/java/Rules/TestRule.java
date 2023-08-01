@@ -12,21 +12,17 @@ public class TestRule {
 	private static String URL = "https://www.saucedemo.com/";
 
 	public static void initialConfigs() {
-		System.out.println("Intial configs -----------------------------------------------");
 		if (!driverInit) {
-			// driver.getPageSource();
 			System.setProperty("webdriver.chrome.driver", PATH_DRIVER);
 			driver = new ChromeDriver();
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
-			// driver.navigate().to(URL);
 			driver.get(URL);
 			driverInit = true;
 		}
 	}
 
 	public static void finishTest() {
-		System.out.println("Finish teste -----------------------------------------------");
 		if (driverInit) {
 			driver.close();
 			driver.quit();
@@ -35,7 +31,6 @@ public class TestRule {
 	}
 
 	public static WebDriver getDiver() {
-		System.out.println("get driver-----------------------------------------------");
 		if (!driverInit) {
 			initialConfigs();
 		}
