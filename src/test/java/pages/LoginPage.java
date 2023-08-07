@@ -1,8 +1,13 @@
 package pages;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import Rules.TestRule;
@@ -16,18 +21,35 @@ public class LoginPage extends LoginElementsMap {
 		PageFactory.initElements(TestRule.getDiver(), this);
 	}
 
-	public void efetuarLogin() {
+	public void efetuarLogin(String userLogin) {
+		String userWeb;
+		String[] listUserWeb;
+
 		wait.until(ExpectedConditions.elementToBeClickable(btnLogin));
-		// System.out.println(standardUser.getText());
-		// wait.until(ExpectedConditions.visibilityOfElementLocated((By) standardUser));
-		userName.sendKeys("standard_user");
-		userPassword.sendKeys("secret_sauce");
-		// wait.until(ExpectedConditions.elementToBeClickable(btnLogin));
-		btnLogin.click();
-		wait.until(ExpectedConditions.visibilityOfAllElements(titleHomeProduct));
 
-		assertEquals("Products", titleHomeProduct.getText());
+		userWeb = userType.getText();
+		listUserWeb = userWeb.split("\n");
 
+		userWeb = encontrarUsuario(listUserWeb, userLogin);
+		
+		if (!userWeb.equals("NotUser")) {
+
+			userName.sendKeys(userWeb);
+			userPassword.sendKeys("secret_sauce");
+
+			wait.until(ExpectedConditions.elementToBeClickable(btnLogin));
+			btnLogin.click();
+		}
+	}
+		
+	public void validaMensagemErro() {
+			assertTrue(loginError.getText().contains("been locked out"));
 	}
 
+	public String encontrarUsuario(String[] lista, String user) {
+		for (String i : lista) {
+			if (i.contains(user))return i;
+		}
+		return "NotUser";
+	}
 }

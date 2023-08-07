@@ -11,8 +11,8 @@ public class HomeProdutosElementsMap extends UtilsElements {
 	@FindBy(xpath = "//span[@class = 'title']")
 	protected WebElement titleHomeProduct;
 	
-	@FindBy(xpath = "//span[@class = 'shopping_cart_badge'][contains(text() ,'1')]")
-	protected WebElement cartOneProduct;
+	@FindBy(xpath = "//span[@class = 'shopping_cart_badge']")
+	protected WebElement cartQuantityProduct;
 	
 	@FindBy(xpath = "//*[@id='add-to-cart-sauce-labs-backpack']")
 	protected WebElement productOne;

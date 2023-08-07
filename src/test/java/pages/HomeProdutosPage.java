@@ -16,11 +16,31 @@ public class HomeProdutosPage extends HomeProdutosElementsMap {
 		PageFactory.initElements(TestRule.getDiver(), this);
 	}
 
-	public void adicionarProdutoCarrinho() {
-		wait.until(ExpectedConditions.elementToBeClickable(productOne));
-		productOne.click();
+	public void adicionarProdutoCarrinho(String produto) {
 
-		assertEquals("1", cartOneProduct.getText());
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class=\"inventory_item\"][" + produto
+				+ "]//button[@class=\"btn btn_primary btn_small btn_inventory\"]")));
+
+		driver.findElement(By.xpath("//div[@class=\"inventory_item\"][" + produto
+				+ "]//button[@class=\"btn btn_primary btn_small btn_inventory\"]")).click();
+
+		assertEquals("1", cartQuantityProduct.getText());
+	}
+
+	public void removerProdutoCarrinho(String produto) {
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class=\"inventory_item\"][" + produto
+				+ "]//button[@class=\"btn btn_secondary btn_small btn_inventory\"]")));
+
+		driver.findElement(By.xpath("//div[@class='inventory_item'][" + produto
+				+ "]//button[@class='btn btn_secondary btn_small btn_inventory']")).click();
+
+		assertTrue(driver.findElement(By.xpath("//div[@class=\"inventory_item\"][" + produto
+				+ "]//button[@class=\"btn btn_primary btn_small btn_inventory\"]")).isDisplayed());
+
+	}
+
+	public void clicarCarrinhoDeCompras() {
+		cartQuantityProduct.click();
 	}
 
 	public void filtrarMenorParaMaior() {
@@ -38,12 +58,29 @@ public class HomeProdutosPage extends HomeProdutosElementsMap {
 							.xpath("//div[@class=\"inventory_item\"][" + i + "]//div[@class=\"inventory_item_price\"]"))
 					.getText();
 
-			assertTrue(Double.parseDouble(precoAtual.replace("$", "")) >= Double.parseDouble(precoAnt.replace("$", "")));
+			assertTrue(
+					Double.parseDouble(precoAtual.replace("$", "")) >= Double.parseDouble(precoAnt.replace("$", "")));
 
 			precoAnt = precoAtual;
 		}
 
 		assertEquals("Price (low to high)", lohiFilter.getText());
+	}
+
+	public void buscaNomeProduto(String nome) {
+		int i = 1;
+		while (i <= Integer.parseInt(
+				driver.findElement(By.xpath("//div[@class=\"inventory_list\"]")).getDomProperty("childElementCount"))
+				&& !nome.equals(driver
+						.findElement(By.xpath(
+								"//div[@class=\"inventory_item\"][" + i + "]//div[@class=\"inventory_item_name\"]"))
+						.getText()))
+			i++;
+
+		assertEquals(nome,
+				driver.findElement(
+						By.xpath("//div[@class=\"inventory_item\"][" + i + "]//div[@class=\"inventory_item_name\"]"))
+						.getText());
 	}
 
 }

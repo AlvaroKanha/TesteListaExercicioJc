@@ -17,7 +17,8 @@ public class TestRule {
 			driver = new ChromeDriver();
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
-			driver.get(URL);
+			//driver.get(URL);
+			driver.navigate().to(URL);
 			driverInit = true;
 		}
 	}

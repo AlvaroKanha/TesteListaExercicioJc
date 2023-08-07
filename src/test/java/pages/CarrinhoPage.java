@@ -1,25 +1,34 @@
 package pages;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import elements.CheckoutElementsPage;
+import Rules.TestRule;
+import elements.CarrinhoElementsMap;
 
-public class CheckoutPage extends CheckoutElementsPage {
-	LoginPage login = new LoginPage();
-	HomeProdutosPage home = new HomeProdutosPage();
-	
-	public void validarQuantidadeDeItensNoCarrinho () {
-		login.efetuarLogin();
-		home.adicionarProdutoCarrinho();
-		driver.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a")).click();
-		
+public class CarrinhoPage extends CarrinhoElementsMap {
+
+	public CarrinhoPage() {
+		PageFactory.initElements(TestRule.getDiver(), this);
+	}
+
+	public void validarQuantidadeDeItensNoCarrinho(String quantidade) {
 		wait.until(ExpectedConditions.visibilityOf(tituloCarrinho));
-		assertEquals("1", quantidadeProdutos.getText());
-		
+		assertEquals(quantidade, cartQuantityProduct.getText());
 	}
 	
+	public void removerProdutoCarrinho () {
+		btnRemove.click();
+		assertTrue(driver.findElement(By.xpath("//div[@class = \"removed_cart_item\"]")).isEnabled());
+	}
+	
+	public void clicarCheckout() {
+		BtnCheckout.click();
+		wait.until(ExpectedConditions.invisibilityOf(BtnCheckout));
+	}
+
 }

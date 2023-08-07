@@ -14,18 +14,21 @@ public class LoginElementsMap extends UtilsElements {
 	@FindBy(xpath = "//*[@id='login-button']")
 	protected WebElement btnLogin;
 
-	@FindBy(xpath = "//*[@id=\"login_credentials\"]/text()[1]")
-	protected WebElement standardUser;
+	@FindBy(xpath = "//*[@id=\"login_credentials\"]")
+	protected WebElement userType;
 
 	@FindBy(xpath = "//*[@id=\"login_credentials\"]/text()[2]")
 	protected WebElement lockedUser;
 
 	@FindBy(xpath = "//div[contains(text() ,'secret')]")
 	protected WebElement password;
+	
+	@FindBy(xpath = "//h3[@data-test = 'error']")
+	protected WebElement loginError;
 
 	// Verificar se n�o tem como validar pela outra classe
-	@FindBy(xpath = "//span[@class = 'title']")
-	protected WebElement titleHomeProduct;
+	//@FindBy(xpath = "//span[@class = 'title']")
+	//protected WebElement titleHomeProduct;
 		
 
 }
