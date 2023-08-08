@@ -1,15 +1,17 @@
 package runner;
 
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.devtools.v112.systeminfo.SystemInfo;
 
 import Rules.TestRule;
 import pages.CarrinhoPage;
 import pages.CheckoutPage;
+import pages.CompleteOrderPage;
 import pages.HomeProdutosPage;
 import pages.LoginPage;
+import pages.ReviewPage;
 
 public class RunnerTest {
 
@@ -17,6 +19,8 @@ public class RunnerTest {
 	HomeProdutosPage home = new HomeProdutosPage();
 	CarrinhoPage carrinho = new CarrinhoPage();
 	CheckoutPage checkout = new CheckoutPage();
+	ReviewPage review = new ReviewPage();
+	CompleteOrderPage complete = new CompleteOrderPage();
 
 	@Before
 	public void inicioTest() {
@@ -29,25 +33,26 @@ public class RunnerTest {
 		TestRule.finishTest();
 	}
 
-	@Test
+	//@Test
 	public void LoginStandardUser() {
 		System.out.println("Standard");
 		login.efetuarLogin("standard");
 	}
 
-	// @Test
+	//@Test
 	public void adicionarUmProdutoNoCarrinho() {
 		login.efetuarLogin("standard");
 		home.adicionarProdutoCarrinho("1");
+		carrinho.validarQuantidadeDeItensNoCarrinho("1");
 	}
 
-	// @Test
+	//@Test
 	public void filtrarMenorParaMaior() {
 		login.efetuarLogin("standard");
 		home.filtrarMenorParaMaior();
 	}
 
-	// @Test
+	//@Test
 	public void validarTerceiroProdutoNoCarrinho() {
 		login.efetuarLogin("standard");
 		home.adicionarProdutoCarrinho("3");
@@ -56,32 +61,30 @@ public class RunnerTest {
 		carrinho.removerProdutoCarrinho();
 	}
 
-	// @Test
+	//@Test
 	public void adicionarTodosProdutos() {
 		login.efetuarLogin("standard");
-
-		for (int i = 1; i <= 6; i++) {
+		for (int i = 1; i <= 6; i++)
 			home.adicionarProdutoCarrinho(Integer.toString(i));
-		}
 		home.clicarCarrinhoDeCompras();
 		carrinho.validarQuantidadeDeItensNoCarrinho("6");
 	}
 
-	// @Test
+	//@Test
 	public void adicionarProdutoERemoverSemIrAoCarrinho() {
 		login.efetuarLogin("standard");
 		home.adicionarProdutoCarrinho("1");
 		home.removerProdutoCarrinho("1");
 	}
 
-	// @Test
+	//@Test
 	public void validarNomeProduto() {
 		login.efetuarLogin("standard");
 		home.buscaNomeProduto("Sauce Labs Fleece Jacket");
 
 	}
 
-	@Test
+	//@Test
 	public void realizarLoginLocked() {
 		login.efetuarLogin("locked");
 		login.validaMensagemErro();
@@ -89,11 +92,20 @@ public class RunnerTest {
 
 	//@Test
 	public void checkoutProduto() {
+		JSONObject massa = new JSONObject();
 		login.efetuarLogin("standard");
-		home.adicionarProdutoCarrinho("1");
+		massa = home.adicionarProdutoCarrinho("1");
 		home.clicarCarrinhoDeCompras();
 		carrinho.clicarCheckout();
 		checkout.preencherCamposCheckout();
 		checkout.clicarContinueCheckout();
+		review.validaProdutosEValores(massa);
+		review.clicarEmFinalizar();
+		complete.verificaOrderComplete();
+	}
+	
+	@Test
+	public void adicionarTresProdutosAleatorio() {
+		
 	}
 }

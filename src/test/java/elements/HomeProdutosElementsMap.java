@@ -22,4 +22,6 @@ public class HomeProdutosElementsMap extends UtilsElements {
 	
 	@FindBy(xpath = "//span[@class = 'active_option']")
 	protected WebElement activatedFilter;
+	
+
 }

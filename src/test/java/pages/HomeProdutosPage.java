@@ -3,28 +3,48 @@ package pages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import Rules.TestRule;
 import elements.HomeProdutosElementsMap;
+import elements.UtilsElements;
 
 public class HomeProdutosPage extends HomeProdutosElementsMap {
+	JSONObject massa = new JSONObject();
+	UtilsElements util = new UtilsElements();
 
 	public HomeProdutosPage() {
 		PageFactory.initElements(TestRule.getDiver(), this);
 	}
 
-	public void adicionarProdutoCarrinho(String produto) {
 
+	
+	public JSONObject adicionarProdutoCarrinho(String produto) {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class=\"inventory_item\"][" + produto
 				+ "]//button[@class=\"btn btn_primary btn_small btn_inventory\"]")));
+
+		massa.put("Nome",
+				driver.findElement(By.xpath(
+						"//div[@class=\"inventory_item\"][" + produto + "]//div[@class = 'inventory_item_name']"))
+						.getText());
+		massa.put("Descricao",
+				driver.findElement(By.xpath(
+						"//div[@class=\"inventory_item\"][" + produto + "]//div[@class = 'inventory_item_desc']"))
+						.getText());
+		massa.put("Preco",
+				driver.findElement(By.xpath(
+						"//div[@class=\"inventory_item\"][" + produto + "]//div[@class = 'inventory_item_price']"))
+						.getText());
+
+		util.setDetalheProduto(massa);
 
 		driver.findElement(By.xpath("//div[@class=\"inventory_item\"][" + produto
 				+ "]//button[@class=\"btn btn_primary btn_small btn_inventory\"]")).click();
 
-		assertEquals("1", cartQuantityProduct.getText());
+		return massa;
 	}
 
 	public void removerProdutoCarrinho(String produto) {

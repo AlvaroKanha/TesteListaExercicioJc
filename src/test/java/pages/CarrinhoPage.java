@@ -17,7 +17,7 @@ public class CarrinhoPage extends CarrinhoElementsMap {
 	}
 
 	public void validarQuantidadeDeItensNoCarrinho(String quantidade) {
-		wait.until(ExpectedConditions.visibilityOf(tituloCarrinho));
+		wait.until(ExpectedConditions.visibilityOf(cartQuantityProduct));
 		assertEquals(quantidade, cartQuantityProduct.getText());
 	}
 	
