@@ -3,6 +3,10 @@ package pages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
@@ -13,16 +17,43 @@ import elements.HomeProdutosElementsMap;
 import elements.UtilsElements;
 
 public class HomeProdutosPage extends HomeProdutosElementsMap {
-	JSONObject massa = new JSONObject();
+
+	ArrayList<JSONObject> listaMassas = new ArrayList<JSONObject>();
 	UtilsElements util = new UtilsElements();
 
 	public HomeProdutosPage() {
 		PageFactory.initElements(TestRule.getDiver(), this);
 	}
 
+	public void adicionarProdutoAleatorio(int num) {
+		Integer[] lista = new Integer[num];
+		Random random = new Random();
+		int numeroAleatorio;
 
-	
-	public JSONObject adicionarProdutoCarrinho(String produto) {
+		if (num < Integer.parseInt(
+				driver.findElement(By.xpath("//div[@class=\"inventory_list\"]")).getDomProperty("childElementCount"))) {
+
+			int aux = 0;
+			while (aux < num) {
+				numeroAleatorio = random.nextInt(1,
+						Integer.parseInt(driver.findElement(By.xpath("//div[@class=\"inventory_list\"]"))
+								.getDomProperty("childElementCount")));
+				if (!Arrays.asList(lista).contains(numeroAleatorio)) {
+					lista[aux] = numeroAleatorio;
+					aux++;
+				}
+
+			}
+
+			for (int i = 0; i < lista.length; i++) {
+				adicionarProdutoCarrinho(Integer.toString(lista[i]));
+			}
+		}
+		util.setLista(lista);
+	}
+
+	public void adicionarProdutoCarrinho(String produto) {
+		JSONObject massa = new JSONObject();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class=\"inventory_item\"][" + produto
 				+ "]//button[@class=\"btn btn_primary btn_small btn_inventory\"]")));
 
@@ -39,12 +70,16 @@ public class HomeProdutosPage extends HomeProdutosElementsMap {
 						"//div[@class=\"inventory_item\"][" + produto + "]//div[@class = 'inventory_item_price']"))
 						.getText());
 
-		util.setDetalheProduto(massa);
-
 		driver.findElement(By.xpath("//div[@class=\"inventory_item\"][" + produto
 				+ "]//button[@class=\"btn btn_primary btn_small btn_inventory\"]")).click();
 
-		return massa;
+		assertTrue(listaMassas.add(massa));
+		util.setDetalheProduto(listaMassas);
+	}
+
+	public void imprimeListaMassa() {
+		for (int i = 0; i < listaMassas.size(); i++)
+			System.out.println(listaMassas.get(i));
 	}
 
 	public void removerProdutoCarrinho(String produto) {

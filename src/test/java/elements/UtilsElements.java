@@ -1,6 +1,7 @@
 package elements;
 
 import java.time.Duration;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
@@ -14,13 +15,22 @@ public class UtilsElements {
 
 	protected WebDriver driver = TestRule.getDiver();
 	protected WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	protected JSONObject detalheProduto = new JSONObject();
+	private ArrayList<JSONObject> detalheProduto = new ArrayList <JSONObject>();
+	private Integer[] lista;
 	
-	public JSONObject getDetalheProduto() {
+	public Integer[] getLista() {
+		return lista;
+	}
+
+	public void setLista(Integer[] lista) {
+		this.lista = lista;
+	}
+
+	public ArrayList<JSONObject> getDetalheProduto() {
 		return detalheProduto;
 	}
 
-	public void setDetalheProduto(JSONObject detalheProduto) {
+	public void setDetalheProduto(ArrayList<JSONObject> detalheProduto) {
 		this.detalheProduto = detalheProduto;
 	}
 	

@@ -1,6 +1,5 @@
 package runner;
 
-import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +27,7 @@ public class RunnerTest {
 
 	}
 
-	@After
+	//@After
 	public void fimTest() {
 		TestRule.finishTest();
 	}
@@ -64,8 +63,9 @@ public class RunnerTest {
 	//@Test
 	public void adicionarTodosProdutos() {
 		login.efetuarLogin("standard");
-		for (int i = 1; i <= 6; i++)
+		for (int i = 1; i <= 6; i++) {
 			home.adicionarProdutoCarrinho(Integer.toString(i));
+		}
 		home.clicarCarrinhoDeCompras();
 		carrinho.validarQuantidadeDeItensNoCarrinho("6");
 	}
@@ -92,20 +92,21 @@ public class RunnerTest {
 
 	//@Test
 	public void checkoutProduto() {
-		JSONObject massa = new JSONObject();
 		login.efetuarLogin("standard");
-		massa = home.adicionarProdutoCarrinho("1");
+		home.adicionarProdutoCarrinho("1");
 		home.clicarCarrinhoDeCompras();
 		carrinho.clicarCheckout();
 		checkout.preencherCamposCheckout();
 		checkout.clicarContinueCheckout();
-		review.validaProdutosEValores(massa);
+		review.validaProdutosEValores();
 		review.clicarEmFinalizar();
 		complete.verificaOrderComplete();
 	}
 	
 	@Test
 	public void adicionarTresProdutosAleatorio() {
-		
+		login.efetuarLogin("standard");
+		home.adicionarProdutoAleatorio(3);
+		home.clicarCarrinhoDeCompras();
 	}
 }
