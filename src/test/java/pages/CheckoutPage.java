@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import Rules.TestRule;
 import elements.CheckoutElementsMap;
+import rules.TestRule;
 
 public class CheckoutPage extends CheckoutElementsMap{
 	

@@ -1,18 +1,20 @@
-package runner;
+package glue;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
-import Rules.TestRule;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import pages.CarrinhoPage;
 import pages.CheckoutPage;
 import pages.CompleteOrderPage;
 import pages.HomeProdutosPage;
 import pages.LoginPage;
 import pages.ReviewPage;
+import rules.TestRule;
 
-public class RunnerTest {
+public class GlueCode {
 
 	LoginPage login = new LoginPage();
 	HomeProdutosPage home = new HomeProdutosPage();
@@ -20,6 +22,41 @@ public class RunnerTest {
 	CheckoutPage checkout = new CheckoutPage();
 	ReviewPage review = new ReviewPage();
 	CompleteOrderPage complete = new CompleteOrderPage();
+	
+	
+	
+	
+	
+	
+
+
+	@Given("estou na tela de login")
+	public void estou_na_tela_de_login() {
+		TestRule.initialConfigs();
+	    
+	}
+	@When("efetuar o login com usuario standard")
+	public void efetuar_o_login_com_usuario_standard() {
+		login.efetuarLogin("standard");
+	    
+	}
+	@Then("visualizo a tela de produtos")
+	public void visualizo_a_tela_de_produtos() {
+	    home.validaLogin();
+	    
+	}
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Before
 	public void inicioTest() {
@@ -27,7 +64,7 @@ public class RunnerTest {
 
 	}
 
-	//@After
+	@After
 	public void fimTest() {
 		TestRule.finishTest();
 	}
@@ -103,7 +140,7 @@ public class RunnerTest {
 		complete.verificaOrderComplete();
 	}
 	
-	@Test
+	//@Test
 	public void adicionarTresProdutosAleatorio() {
 		login.efetuarLogin("standard");
 		home.adicionarProdutoAleatorio(3);

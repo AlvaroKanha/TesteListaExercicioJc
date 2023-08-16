@@ -12,9 +12,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import Rules.TestRule;
 import elements.HomeProdutosElementsMap;
 import elements.UtilsElements;
+import rules.TestRule;
 
 public class HomeProdutosPage extends HomeProdutosElementsMap {
 
@@ -25,6 +25,12 @@ public class HomeProdutosPage extends HomeProdutosElementsMap {
 		PageFactory.initElements(TestRule.getDiver(), this);
 	}
 
+	public void validaLogin() {
+		wait.until(ExpectedConditions.visibilityOf(titleHomeProduct));
+		assertTrue(titleHomeProduct.isDisplayed());
+	}
+		
+	
 	public void adicionarProdutoAleatorio(int num) {
 		Integer[] lista = new Integer[num];
 		Random random = new Random();

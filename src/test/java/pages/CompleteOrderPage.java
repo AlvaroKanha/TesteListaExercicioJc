@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import Rules.TestRule;
 import elements.CompleteOrderElementsMap;
+import rules.TestRule;
 
 public class CompleteOrderPage extends CompleteOrderElementsMap {
 

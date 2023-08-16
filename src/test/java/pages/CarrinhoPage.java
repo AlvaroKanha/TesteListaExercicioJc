@@ -7,8 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import Rules.TestRule;
 import elements.CarrinhoElementsMap;
+import rules.TestRule;
 
 public class CarrinhoPage extends CarrinhoElementsMap {
 
